@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\App\HomeController;
+use App\Http\Controllers\App\InvitationController;
 use App\Http\Controllers\App\ProfileController;
 use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,8 +33,6 @@ Route::middleware([
     // });
 
 
-
-
     Route::middleware('auth')->group(function () {
         Route::get("/", [HomeController::class, 'index'])->name('home');
         Route::redirect('/dashboard', '/', 301)->name('dashboard');
@@ -42,8 +41,12 @@ Route::middleware([
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
-        Route::post('/users/invite', [UserController::class, 'invite'])->name('users.invite');
+
+        Route::post('/invitations', [InvitationController::class, 'sendInvitation'])->name('invitations.sent');
+        Route::delete('/invitations/{invitation}', [InvitationController::class, 'destroy'])->name('invitations.delete');
     });
+
+    Route::get('/invitations/{token}', [InvitationController::class, 'acceptInvitation'])->name('invitations.accept');
 
     require __DIR__ . '/tenant_auth.php';
 });

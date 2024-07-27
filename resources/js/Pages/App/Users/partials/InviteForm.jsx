@@ -1,8 +1,9 @@
+import DangerButton from "@/Components/DangerButton";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import styles from "@/styles";
-import { useForm } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
 import React from "react";
 
 const InviteForm = ({ invitations }) => {
@@ -14,7 +15,7 @@ const InviteForm = ({ invitations }) => {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("users.invite"));
+        post(route("invitations.sent"));
     };
 
     return (
@@ -55,6 +56,7 @@ const InviteForm = ({ invitations }) => {
                             >
                                 Sent on
                             </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,12 +68,31 @@ const InviteForm = ({ invitations }) => {
                                 <td className="border px-4 py-2 text-sm font-normal text-gray-900">
                                     {invitation.created_at}
                                 </td>
+                                <td className="border px-4 py-2 text-sm font-normal text-gray-900">
+                                    <DeleteInvitation invitation={invitation} />
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
         </div>
+    );
+};
+
+const DeleteInvitation = ({ invitation }) => {
+    const { delete: destroy, processing, recentlySuccessful } = useForm();
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        destroy(route("invitations.delete", invitation.id));
+    };
+
+    return (
+        <DangerButton onClick={submit} className="text-xs !px-2 !py-1 rounded">
+            {processing ? ".." : "-"}
+        </DangerButton>
     );
 };
 
