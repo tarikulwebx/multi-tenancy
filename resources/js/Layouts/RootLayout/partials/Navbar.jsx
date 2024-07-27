@@ -83,6 +83,9 @@ const ProfileDropdown = ({ user }) => {
                         <Dropdown.Link href={route("profile.edit")}>
                             Profile
                         </Dropdown.Link>
+                        <Dropdown.Link href={route("tenant.index")}>
+                            Tenants
+                        </Dropdown.Link>
                         <Dropdown.Link
                             href={route("logout")}
                             method="post"
