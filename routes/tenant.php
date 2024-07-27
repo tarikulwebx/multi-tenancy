@@ -42,6 +42,7 @@ Route::middleware([
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::post('/users/invite', [UserController::class, 'invite'])->name('users.invite');
     });
 
     require __DIR__ . '/tenant_auth.php';

@@ -4,16 +4,16 @@ import { Head } from "@inertiajs/react";
 import React from "react";
 import InviteForm from "./partials/InviteForm";
 
-const Index = ({ auth, users }) => {
+const Index = ({ auth, users, invitations }) => {
     return (
         <AppRootLayout
             user={auth.user}
             header={<h1 className={styles.pageTitle}>Users</h1>}
         >
-            {/* <pre>{JSON.stringify(users, undefined, 2)}</pre> */}
+            {/* <pre>{JSON.stringify(invitations, undefined, 2)}</pre> */}
             <Head title="Users" />
 
-            <InviteForm />
+            <InviteForm invitations={invitations} />
 
             <div className={styles.card}>
                 <div className="overflow-auto">

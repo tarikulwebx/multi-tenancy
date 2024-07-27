@@ -5,7 +5,7 @@ import styles from "@/styles";
 import { useForm } from "@inertiajs/react";
 import React from "react";
 
-const InviteForm = () => {
+const InviteForm = ({ invitations }) => {
     const { data, setData, post, errors, processing, recentlySuccessful } =
         useForm({
             email: "",
@@ -14,7 +14,7 @@ const InviteForm = () => {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("profile.update"));
+        post(route("users.invite"));
     };
 
     return (
@@ -37,6 +37,40 @@ const InviteForm = () => {
                 </div>
                 <InputError message={errors.email} className="mt-1" />
             </form>
+
+            <div className="overflow-auto mt-8 max-w-lg">
+                <table className="min-w-full border">
+                    <thead className="border-b bg-white">
+                        <tr>
+                            <th
+                                scope="col"
+                                className="border px-4 py-2 text-left text-sm font-semibold text-gray-900"
+                            >
+                                Email
+                            </th>
+
+                            <th
+                                scope="col"
+                                className="border px-4 py-2 text-left text-sm font-semibold text-gray-900"
+                            >
+                                Sent on
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {invitations.map((invitation, index) => (
+                            <tr key={index} className="bg-white">
+                                <td className="border px-4 py-2 text-sm font-normal text-gray-900">
+                                    {invitation.email}
+                                </td>
+                                <td className="border px-4 py-2 text-sm font-normal text-gray-900">
+                                    {invitation.created_at}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
