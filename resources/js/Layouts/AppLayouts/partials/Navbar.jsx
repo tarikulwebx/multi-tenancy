@@ -40,10 +40,10 @@ const NavMenu = () => {
         <nav>
             <ul className="flex items-center gap-4">
                 <li>
-                    <NavLink>Home</NavLink>
+                    <NavLink href={route("home")}>Home</NavLink>
                 </li>
                 <li>
-                    <NavLink>About</NavLink>
+                    <NavLink href={route("users.index")}>Users</NavLink>
                 </li>
             </ul>
         </nav>

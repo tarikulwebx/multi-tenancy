@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\App\HomeController;
 use App\Http\Controllers\App\ProfileController;
+use App\Http\Controllers\App\UserController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
@@ -39,6 +40,8 @@ Route::middleware([
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
     });
 
     require __DIR__ . '/tenant_auth.php';
